@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/c_img"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:visibility="gone"/>
+    <VideoView
+        android:id="@+id/c_video"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:visibility="gone"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@null"
+        android:layout_gravity="top"
+        android:id="@+id/c_ettext"
+        android:hint="dy's hint"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="save"
+            android:id="@+id/c_save"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="cancel"
+            android:id="@+id/c_cancel"/>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
