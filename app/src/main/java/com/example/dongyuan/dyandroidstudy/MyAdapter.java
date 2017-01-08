@@ -2,9 +2,6 @@ package com.example.dongyuan.dyandroidstudy;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,41 +53,9 @@ public class MyAdapter extends BaseAdapter {
         cursor.moveToPosition(position);
         String content = cursor.getString(cursor.getColumnIndex("content"));
         String time = cursor.getString(cursor.getColumnIndex("time"));
-        String uri = cursor.getString(cursor.getColumnIndex("path"));
         contenttv.setText(content);
         timetv.setText(time);
 
-
-        imgiv.setImageBitmap(getImageThumbnail(uri, 200, 200));
-
         return layout;
-    }
-
-    public Bitmap getImageThumbnail(String Uri, int wid, int hei){
-        Bitmap bitmap = null;
-        BitmapFactory.Options opt = new BitmapFactory.Options();
-        opt.inJustDecodeBounds = true;
-        bitmap = BitmapFactory.decodeFile(Uri, opt);
-        opt.inJustDecodeBounds = false;
-        int bewid = opt.outWidth/wid;
-        int behei = opt.outHeight/hei;
-        int be = 1;
-        if (bewid < behei)
-            be = bewid;
-        else be = behei;
-        if (be<=0)
-            be=1;
-
-        opt.inSampleSize = be;
-
-        bitmap = BitmapFactory.decodeFile(Uri, opt);
-        bitmap = ThumbnailUtils.extractThumbnail(bitmap, wid, hei, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-
-        return  bitmap;
-
-
-
-
-
     }
 }

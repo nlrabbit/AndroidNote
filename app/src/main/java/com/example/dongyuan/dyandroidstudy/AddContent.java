@@ -2,22 +2,22 @@ package com.example.dongyuan.dyandroidstudy;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,7 +33,6 @@ public class AddContent extends Activity implements View.OnClickListener{
     private VideoView c_video;
     private NotesDB notesdb;
     private SQLiteDatabase dbWriter;
-    private File phonefile;
 
 
     @Override
@@ -53,35 +52,12 @@ public class AddContent extends Activity implements View.OnClickListener{
         notesdb = new NotesDB(this);
         dbWriter = notesdb.getWritableDatabase();
 
-        initview();
     }
-
-    public void initview(){
-        if(addtype.equals("1")){
-            c_img.setVisibility(View.GONE);
-            c_video.setVisibility(View.GONE);
-        }
-        if(addtype.equals("2")){
-            c_img.setVisibility(View.VISIBLE);
-            c_video.setVisibility(View.GONE);
-
-            Intent iimg = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            phonefile = new File(Environment.getExternalStorageDirectory().getAbsoluteFile()+"/"+getTime()+".jpg");
-            iimg.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(phonefile));
-            startActivityForResult(iimg, 1);
-        }
-        if(addtype.equals("3")){
-            c_img.setVisibility(View.GONE);
-            c_video.setVisibility(View.VISIBLE);
-        }
-    }
-
 
     public void addDB(){
         ContentValues cv = new ContentValues();
         cv.put("content", ettext.getText().toString());
         cv.put("time", getTime());
-        cv.put("img", phonefile+"");
 
         dbWriter.insert("notes", null, cv);
     }
@@ -103,17 +79,6 @@ public class AddContent extends Activity implements View.OnClickListener{
             case R.id.c_cancel:
                 finish();
                 break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == 1){
-            Bitmap bitmap = BitmapFactory.decodeFile(phonefile.getAbsolutePath());
-
-            c_img.setImageBitmap(bitmap);
         }
     }
 }
